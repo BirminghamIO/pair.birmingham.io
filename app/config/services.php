@@ -27,5 +27,11 @@ return array(
 		'model'  => 'User',
 		'secret' => '',
 	),
-
+    
+    'github' => array(
+        'client_id'     => '',
+        'client_secret' => '',
+        'scope'         => array('user'),
+    ),
+    
 );
