@@ -121,7 +121,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-
+        'Jenssegers\OAuth\OAuthServiceProvider',
+        
 	),
 
 	/*
@@ -188,6 +189,7 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
+        'OAuth'             => 'Jenssegers\OAuth\Facades\OAuth',
 
 	),
 

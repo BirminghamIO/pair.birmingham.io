@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+//Basic
+Route::get('/', array('uses' => 'HomeController@showWelcome'));
+
+//Auth
+Route::get('login/github', array('before' => 'guest', 'uses' => 'AuthController@loginWithGithub'));
+Route::get('logout/', array('before' => 'auth', 'uses' => 'AuthController@logout'));
