@@ -6,20 +6,34 @@
 [![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
 [![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+# Birmingham.IO Pair Programming
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+Birmingham.IO Pair Programming is an open source project for programmer from Birmingham, which looking for someone to cooperation.
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Run project on your local environment
 
-## Official Documentation
+if you wanna take a part in this project, you'll need to do some steps at the begining:
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+1. Clone repository to your computer with Git.
 
-### Contributing To Laravel
+2. Run command:
+```bash
+$ composer update
+```
+in project directory to install required libraries. If you aren't familiar with composer you cen meet it [here](https://getcomposer.org/doc/00-intro.md).
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+3. Create virtual host called 'pair-programming.loc' for project-directory/public folder. It's required to working with official Pari Programming OAuth authorisation keys.
 
-### License
+4. Edit local.env file and set your MySQL username, password and table. Next ask admin for keys to OAuth API and set it too.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+5. Run command:
+```bash
+$ php artisan migrate
+```
+and next:
+```bash
+$ php artisan db:seed
+```
+in project directory.
+
+That's it! Everything should working well. If you will have any problems, just let us know on [this forum](https://talk.birmingham.io/t/birmingham-io-hosted-pair-programming-page/257/26).

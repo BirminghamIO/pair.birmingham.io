@@ -9,7 +9,15 @@ class AuthController extends BaseController {
     
     public function login()
 	{
-        //standard login method will be here
+        $login = Input::get('login');
+        $password = Input::get('password');
+        $remember = false;
+        
+        if (Auth::attempt(array('email' => $login, 'password' => $password, 'active' => 1), $remember));
+        elseif(Auth::attempt(array('nick' => $login, 'password' => $password, 'active' => 1), $remember));
+        else return Redirect::to('login')->withErrors(Lang::get('messages.failed_login'), 'login')->withInput(Input::except('password'));
+        
+        return Redirect::to('/');
 	}
     
     public function loginWithGithub()
@@ -41,6 +49,7 @@ class AuthController extends BaseController {
                 if(!empty($github_name)) $user->name = $github_name;
                 if(!empty($github_bio)) $user->description = $github_bio;
                 if(!empty($github_blog)) $user->www = $github_blog;
+                $user->active = 1;
                 $user->save();
             }
             

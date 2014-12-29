@@ -15,5 +15,11 @@
 Route::get('/', array('uses' => 'HomeController@showWelcome'));
 
 //Auth
+Route::get('login', array('before' => 'guest', 'uses' => 'AuthController@index'));
+Route::post('login', array('before' => 'guest', 'uses' => 'AuthController@login'));
 Route::get('login/github', array('before' => 'guest', 'uses' => 'AuthController@loginWithGithub'));
 Route::get('logout/', array('before' => 'auth', 'uses' => 'AuthController@logout'));
+
+//Account
+Route::get('account', array('before' => 'auth', 'uses' => 'UserController@settings'));
+Route::post('account/password', array('before' => 'auth', 'uses' => 'UserController@changePassword'));
