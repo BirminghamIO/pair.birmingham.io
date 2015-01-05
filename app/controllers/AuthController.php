@@ -15,7 +15,9 @@ class AuthController extends BaseController {
         
         if (Auth::attempt(array('email' => $login, 'password' => $password, 'active' => 1), $remember));
         elseif(Auth::attempt(array('nick' => $login, 'password' => $password, 'active' => 1), $remember));
-        else return Redirect::to('login')->withErrors(Lang::get('messages.failed_login'), 'login')->withInput(Input::except('password'));
+        else return Redirect::to('login')
+            ->withErrors(Lang::get('messages.failed_login'), 'login')
+            ->withInput(Input::except('password'));
         
         return Redirect::to('/');
 	}

@@ -2,15 +2,20 @@
 
 class UserController extends BaseController {
 
-	public function index()
-	{
-		return View::make('user');
-	}
+    public function index()
+    {
+        return View::make('user');
+    }
     
-    public function showProfile($nickOrId) {
+    public function showProfile($nickOrId) 
+    {
         if($user = User::find($nickOrId));
+        
         elseif($user = User::where('nick', '=', $nickOrId)->first());
-        else return "nothing to show";
+        
+        else 
+            return "nothing to show";
+        
         return View::make('user.profile')
             ->withUser($user)
             ->withGithubUser(Session::get('github_user'));
@@ -24,7 +29,7 @@ class UserController extends BaseController {
 	}
     
     public function postEdit()
-	{
+    {
 		$email = Input::get('email');
         $nick = Input::get('nick');
         $name = Input::get('name');
@@ -33,16 +38,15 @@ class UserController extends BaseController {
 
         $rules = array(
             'email' => 'required|email|unique:users,email,'.Auth::user()->id,
-            'nick' => 'required|min:3|unique:users,nick,'.Auth::user()->id,
-            'www' => 'url',
+            'nick'  => 'required|min:3|unique:users,nick,'.Auth::user()->id,
+            'www'   => 'url',
         );
         $validator = Validator::make(Input::all(), $rules);
         
         if($validator->fails())
         {
-            echo "bad";
-            exit;
-            return Redirect::to('account')->withErrors($validator);
+            return Redirect::to('account')
+                ->withErrors($validator);
         }
         
         $user = User::find(Auth::user()->id);
@@ -51,15 +55,22 @@ class UserController extends BaseController {
         $user->name = $name;
         $user->www = $www;
         $user->description = $description;
-        if($user->save()) return Redirect::to('account')->with('message', Lang::get('messages.editing_completed'));
-        else return Redirect::to('account')->with('message', Lang::get('messages.editing_completed'));
+        
+        if($user->save()) 
+            return Redirect::to('account')
+                ->with('message', Lang::get('messages.editing_completed'));
+        else 
+            return Redirect::to('account')
+                ->with('message', Lang::get('messages.editing_completed'));
 	}
     
-    public function getChangePassword() {
+    public function getChangePassword() 
+    {
         return View::make('user.changePassword');  
     }
     
-    public function postChangePassword() {
+    public function postChangePassword() 
+    {
         $password = Input::get('password');
         $re_password = Input::get('re_password');
 
@@ -71,36 +82,24 @@ class UserController extends BaseController {
         
         if($validator->fails())
         {
-            return Redirect::to('account/password')->withErrors($validator);
+            return Redirect::to('account/password')
+                ->withErrors($validator);
         }
         
-        if($password !== $re_password) return Redirect::to('account/password')->withErrors(Lang::get('messages.different_passwords'));
+        if($password !== $re_password) 
+            return Redirect::to('account/password')
+                ->withErrors(Lang::get('messages.different_passwords'));
         
         $user = User::find(Auth::user()->id);
         $user->password = Hash::make($password);
-        if($user->save()) return Redirect::to('account/password')->with('message', Lang::get('messages.password_changed'));
-        else return Redirect::to('account/password')->with('message', Lang::get('messages.password_not_changed'));
+        
+        if($user->save()) 
+            return Redirect::to('account/password')
+                ->with('message', Lang::get('messages.password_changed'));
+        
+        else 
+            return Redirect::to('account/password')
+                ->with('message', Lang::get('messages.password_not_changed'));
     }
     
-    public function githubConnect() {
-
-        //call to OAuth API
-        $github = OAuth::consumer('github');
-
-        //if user is returned from GitHub set variables from callback
-        if ($code = Input::get('code'))
-        {
-            $token = $github->requestAccessToken($code);
-            $result = json_decode($github->request('user'), false);
-            $github_id = $result->id;
-            
-        }
-        else
-        {
-            //redirect to github.com to allow authorization
-            return Redirect::away((string) $github->getAuthorizationUri());
-        }
-        
-    }
-
 }

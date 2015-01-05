@@ -4,7 +4,6 @@ class OauthController extends BaseController {
     
     public function githubConnect()
 	{
-        
         $github = OAuth::consumer('github');
 
         if ($code = Input::get('code'))
@@ -12,9 +11,10 @@ class OauthController extends BaseController {
             $token = $github->requestAccessToken($code);
             $result = json_decode($github->request('user'), false);
             
-            if(!Auth::check()) {
-                
+            if(!Auth::check()) 
+            {
                 $user = User::where('email', '=', $result->email)->first();
+                
                 if(!$user)
                 {
                     $user = new User;
@@ -29,22 +29,32 @@ class OauthController extends BaseController {
                 }
                 
                 $user->github_id = $result->id;
-                if($user->save()) {
+                
+                if($user->save()) 
+                {
                     Auth::login($user);
                     Session::put('github_user', $result);
                     return Redirect::to('/');
                 }
             }
-            else {
+            
+            else 
+            {
                 $user = User::find(Auth::user()->id);
                 $user->github_id = $result->id;
-                if($user->save()) {
+                
+                if($user->save()) 
+                {
                     Session::put('github_user', $result);
-                    return Redirect::to('account')->with('message', Lang::get('messages.github_connected'));
+                    return Redirect::to('account')
+                        ->with('message', Lang::get('messages.github_connected'));
                 }
-                else return Redirect::to('account')->with('message', Lang::get('messages.github_not_connected'));
+                
+                else return Redirect::to('account')
+                    ->with('message', Lang::get('messages.github_not_connected'));
             }
         }
+        
         else
         {
             return Redirect::away((string) $github->getAuthorizationUri());
@@ -52,13 +62,19 @@ class OauthController extends BaseController {
         
 	}
     
-    public function githubDisconnect() {
+    public function githubDisconnect() 
+    {
         $user = User::find(Auth::user()->id);
         $user->github_id = NULL;
-        if($user->save() && Session::forget('github_user')) {
-            return Redirect::to('account')->with('message', Lang::get('messages.github_disconnected'));
+        
+        if($user->save() && Session::forget('github_user')) 
+        {
+            return Redirect::to('account')
+                ->with('message', Lang::get('messages.github_disconnected'));
         }
-        else return Redirect::to('account')->with('message', Lang::get('messages.github_not_disconnected'));
+        
+        else return Redirect::to('account')
+            ->with('message', Lang::get('messages.github_not_disconnected'));
     }
 
 }
