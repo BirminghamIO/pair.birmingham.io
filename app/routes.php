@@ -21,5 +21,10 @@ Route::get('login/github', array('before' => 'guest', 'uses' => 'AuthController@
 Route::get('logout/', array('before' => 'auth', 'uses' => 'AuthController@logout'));
 
 //Account
-Route::get('account', array('before' => 'auth', 'uses' => 'UserController@settings'));
-Route::post('account/password', array('before' => 'auth', 'uses' => 'UserController@changePassword'));
+Route::get('account', array('before' => 'auth', 'uses' => 'UserController@getEdit'));
+Route::post('account', array('before' => 'auth', 'uses' => 'UserController@postEdit'));
+Route::get('account/password', array('before' => 'auth', 'uses' => 'UserController@getChangePassword'));
+Route::post('account/password', array('before' => 'auth', 'uses' => 'UserController@postChangePassword'));
+
+//Other
+Route::get('{nick}', array('before' => 'auth', 'uses' => 'UserController@showProfile'));
