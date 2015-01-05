@@ -11,12 +11,16 @@ class UserController extends BaseController {
         if($user = User::find($nickOrId));
         elseif($user = User::where('nick', '=', $nickOrId)->first());
         else return "nothing to show";
-        return View::make('user.profile')->withUser($user);
+        return View::make('user.profile')
+            ->withUser($user)
+            ->withGithubUser(Session::get('github_user'));
     }
     
     public function getEdit()
 	{
-		return View::make('user.edit');
+		return View::make('user.edit')
+            ->withUser(Auth::user())
+            ->withGithub(Session::get('github_user'));;
 	}
     
     public function postEdit()
@@ -75,7 +79,28 @@ class UserController extends BaseController {
         $user = User::find(Auth::user()->id);
         $user->password = Hash::make($password);
         if($user->save()) return Redirect::to('account/password')->with('message', Lang::get('messages.password_changed'));
-        else return Redirect::to('account/password')->with('message', Lang::get('messages.password_changed'));
+        else return Redirect::to('account/password')->with('message', Lang::get('messages.password_not_changed'));
+    }
+    
+    public function githubConnect() {
+
+        //call to OAuth API
+        $github = OAuth::consumer('github');
+
+        //if user is returned from GitHub set variables from callback
+        if ($code = Input::get('code'))
+        {
+            $token = $github->requestAccessToken($code);
+            $result = json_decode($github->request('user'), false);
+            $github_id = $result->id;
+            
+        }
+        else
+        {
+            //redirect to github.com to allow authorization
+            return Redirect::away((string) $github->getAuthorizationUri());
+        }
+        
     }
 
 }

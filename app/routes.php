@@ -17,7 +17,6 @@ Route::get('/', array('uses' => 'HomeController@showWelcome'));
 //Auth
 Route::get('login', array('before' => 'guest', 'uses' => 'AuthController@index'));
 Route::post('login', array('before' => 'guest', 'uses' => 'AuthController@login'));
-Route::get('login/github', array('before' => 'guest', 'uses' => 'AuthController@loginWithGithub'));
 Route::get('logout/', array('before' => 'auth', 'uses' => 'AuthController@logout'));
 
 //Account
@@ -26,5 +25,9 @@ Route::post('account', array('before' => 'auth', 'uses' => 'UserController@postE
 Route::get('account/password', array('before' => 'auth', 'uses' => 'UserController@getChangePassword'));
 Route::post('account/password', array('before' => 'auth', 'uses' => 'UserController@postChangePassword'));
 
-//Other
+//Oauth
+Route::get('github/connect', array('uses' => 'OauthController@githubConnect'));
+Route::get('github/disconnect', array('before' => 'auth', 'uses' => 'OauthController@githubDisconnect'));
+
+//Others
 Route::get('{nick}', array('before' => 'auth', 'uses' => 'UserController@showProfile'));
