@@ -1,35 +1,35 @@
 # Birmingham.IO Pair Programming
 
-Birmingham.IO Pair Programming is a project of platform for programmers from Birmingham, which are looking for someone to cooperation.
+This repository is for the Birmingham.IO Pair Programming project. The project exists as a platform for programmers within the greater Birmingham area, to aid in their search for people to collaborate with.
 
-## Run project on your local environment
+## Running the site via Homestead
 
-if you wanna take a part in this project, you'll need to do some steps at the begining:
+It is recommended that you use [Laravel Homestead](http://laravel.com/docs/4.2/homestead) for development, to ensure a level playing field, and eliminate phrases such as "it works on my machine". (If you've not already, install Homestead now).
 
-Clone repository to your computer.
+To start with you need to clone this repo into an accessible directory on your computer, then update the `~/.homestead/Homestead.yaml` file with the relevant folder, site and database settings. It should look something like this:
 
-Open terminal, go to project directory and run:
+```
+folders:
+    - map: ~/Workspace/pair.birmingham.io
+      to: /home/vagrant/pair.birmingham.io
+
+sites:
+    - map: pair.birmingham.io.192.168.10.10.xip.io
+      to: /home/vagrant/pair.birmingham.io/public
+
+databases:
+    - pair
+```
+
+(We're using [xip.io](http://xip.io/) for the site's url, to allow for URLs like: `pair.birmingham.io.192.168.10.10.xip.io` to be used with the minimum of fuss and without having to edit the hosts file.)
+
+After starting Homestead and SSH'ing into the server, navigate to the `~/pair.birmingham.io` and run:
 ```bash
 $ composer update
 ```
-If you aren't familiar with Composer you can meet it [here](https://getcomposer.org/doc/00-intro.md).
+(If you aren't familiar with it, you can [learn more about Composer here](https://getcomposer.org/doc/00-intro.md).)
 
-Create virtual host called `pair-programming.loc` for projects `/public` folder. It's required to working with official Pair Programming OAuth authorisation keys.
-
-Create `.env.local.php` file within the project root and paste there: 
-```php
-<?php
-
-return array(
-    'MYSQL_USERNAME' => '',
-    'MYSQL_PASSWORD' => '',
-    'OAUTH_GITHUB_CLIENT_ID' => '',
-    'OAUTH_GITHUB_CLIENT_SECRET' => '',
-);
-```
-Set your MySQL settings and next ask us for keys to OAuth API.
-
-Create MySQL database named `pair-programming`.
+Once this is finished, make a copy of the `.env.local.php.sample` file named `.env.local.php` and update it with the relevent settings (If you're a member of [Team Pair on GitHub](https://github.com/orgs/BirminghamIO/teams/team-pair), you can use the tokens listed as Homestead.)
 
 Run command:
 ```bash
@@ -40,4 +40,6 @@ and next:
 $ php artisan db:seed
 ```
 
-That's it! Everything should working well. If you will have any problems, feel free to ask!
+And that's it! Everything should working. Visit http://pair.birmingham.io.192.168.10.10.xip.io using your browser and marvel at what you've accomplished.
+
+If you will have any problems, feel free to ask!
