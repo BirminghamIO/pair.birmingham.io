@@ -2,6 +2,19 @@
 
 This repository is for the Birmingham.IO Pair Programming project. The project exists as a platform for programmers within the greater Birmingham area, to aid in their search for people to collaborate with.
 
+## Setting up the Application on GitHub
+
+In order for the site to let users login via GitHub, you have to create an application on GitHub for it to hook into.
+
+To do this visit [Register new application](https://github.com/settings/applications/new) on GitHub and complete with the following settings:
+
+- **Application name:** *whatever you want*
+- **Homepage URL:** `http://pair.birmingham.io.192.168.10.10.xip.io/`
+- **Application description:** *whatever you want*
+- **Authorisation callback URL:** `http://pair.birmingham.io.192.168.10.10.xip.io/github/connect`
+
+Once you've saved this, you'll be given a client ID and a client secret, make a note of these as you'll need them later.
+
 ## Running the site via Homestead
 
 It is recommended that you use [Laravel Homestead](http://laravel.com/docs/4.2/homestead) for development, to ensure a level playing field, and eliminate phrases such as "it works on my machine". (If you've not already, install Homestead now).
@@ -29,7 +42,7 @@ $ composer update
 ```
 (If you aren't familiar with it, you can [learn more about Composer here](https://getcomposer.org/doc/00-intro.md).)
 
-Once this is finished, make a copy of the `.env.local.php.sample` file named `.env.local.php` and update it with the relevent settings (If you're a member of [Team Pair on GitHub](https://github.com/orgs/BirminghamIO/teams/team-pair), you can use the tokens listed as Homestead.)
+Once this is finished, make a copy of the `.env.local.php.sample` file named `.env.local.php` and update it with the relevent settings.
 
 Run command:
 ```bash
