@@ -1,5 +1,7 @@
 # Birmingham.IO Pair Programming
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/BirminghamIO/pair.birmingham.io?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This repository is for the Birmingham.IO Pair Programming project. The project exists as a platform for programmers within the greater Birmingham area, to aid in their search for people to collaborate with.
 
 ## Setting up the Application on GitHub
