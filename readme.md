@@ -1,3 +1,5 @@
+**This project has been archived, and is no longer being actively developed.**
+
 # Birmingham.IO Pair Programming
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/BirminghamIO/pair.birmingham.io?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
